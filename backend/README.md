@@ -6,8 +6,13 @@ Spring Boot 版本的后端，默认提供：
 - `GET /api/messages`
 - `POST /api/messages`
 - `GET /api/forecast`
+- `GET /api/pet`
+- `POST /api/pet/pat`
+- `POST /api/pet/feed`
+- `POST /api/pet/outfit`
+- `POST /api/pet/chat`
 
-留言接口返回结构保持和之前一致；晚霞预测现在也通过后端聚合 Open-Meteo 数据并返回评分结果。
+留言接口返回结构保持和之前一致；晚霞预测现在也通过后端聚合 Open-Meteo 数据并返回评分结果。主页电子宠物也会把饱食度、服装状态和聊天记录落到 SQLite。
 
 ## Local Development
 
@@ -34,9 +39,15 @@ export GUESTBOOK_DB_PATH=/var/www/einswen_blog/guestbook.sqlite3
 export GUESTBOOK_IP_HASH_SALT=change-this-secret
 export GUESTBOOK_MESSAGE_COOLDOWN_SECONDS=3600
 export CORS_ALLOWED_ORIGINS=https://einswen.net
+export PET_SATIETY_DECAY_MINUTES_PER_POINT=35
+export DEEPSEEK_API_KEY=your-real-key
+export DEEPSEEK_BASE_URL=https://api.deepseek.com
+export DEEPSEEK_MODEL=deepseek-chat
 ```
 
 默认数据库路径是 `backend/data/guestbook.sqlite3`。这个默认值和你仓库里现有 SQLite 文件路径兼容，可以直接沿用之前的数据。
+
+`DEEPSEEK_API_KEY` 不要直接写进源码。现在后端会从环境变量里读取它，这样前端拿不到，也不会被一起打进静态资源里。
 
 ## Production Notes
 

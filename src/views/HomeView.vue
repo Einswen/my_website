@@ -1,7 +1,9 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
+import { chatWithPet, feedPet, fetchPetState, patPet } from '../api/pet'
 import AppNavbar from '../components/home/AppNavbar.vue'
+import PetCompanionPanel from '../components/home/PetCompanionPanel.vue'
 
 const navLinks = [
   { label: '首页', to: '/', align: 'left' },
@@ -13,6 +15,13 @@ const navLinks = [
 const welcomeWords = ['hihi', '你好～']
 const typedWord = ref('')
 const particleCanvas = ref(null)
+const petState = ref(null)
+const petLoading = ref(true)
+const petBusyAction = ref('')
+const petError = ref('')
+const petChatMessages = ref([
+  { id: 'intro', role: 'assistant', content: '喵呜，我在这里。摸摸我、喂我吃点东西，或者陪我聊聊天吧。' },
+])
 
 let animationTimer = null
 let particleFrame = null
@@ -208,9 +217,75 @@ function startParticleField() {
 
 let stopParticleField = null
 
+async function loadPetState() {
+  petLoading.value = true
+  petError.value = ''
+
+  try {
+    petState.value = await fetchPetState()
+  } catch (error) {
+    petError.value = error instanceof Error ? error.message : '我暂时还没有醒来。'
+  } finally {
+    petLoading.value = false
+  }
+}
+
+async function handlePetAction(action, runner) {
+  petBusyAction.value = action
+  petError.value = ''
+
+  try {
+    petState.value = await runner()
+  } catch (error) {
+    petError.value = error instanceof Error ? error.message : '我刚刚没有回应。'
+  } finally {
+    petBusyAction.value = ''
+  }
+}
+
+function handlePatPet() {
+  return handlePetAction('pat', () => patPet())
+}
+
+function handleFeedPet(optionId) {
+  return handlePetAction('feed', () => feedPet(optionId))
+}
+
+async function handleChatPet(message) {
+  const userMessage = {
+    id: `user-${Date.now()}`,
+    role: 'user',
+    content: message,
+  }
+  petChatMessages.value = [...petChatMessages.value, userMessage]
+  petBusyAction.value = 'chat'
+  petError.value = ''
+
+  try {
+    const payload = await chatWithPet(message)
+    petState.value = {
+      ...payload.pet,
+      reaction: payload.reply,
+    }
+    petChatMessages.value = [
+      ...petChatMessages.value,
+      {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content: payload.reply,
+      },
+    ]
+  } catch (error) {
+    petError.value = error instanceof Error ? error.message : '我刚刚发呆了。'
+  } finally {
+    petBusyAction.value = ''
+  }
+}
+
 onMounted(() => {
   startWelcomeTyping()
   stopParticleField = startParticleField()
+  loadPetState()
 })
 
 onBeforeUnmount(() => {
@@ -245,6 +320,18 @@ onBeforeUnmount(() => {
           </h1>
         </div>
       </section>
+
+      <PetCompanionPanel
+        :pet="petState"
+        :loading="petLoading"
+        :busy-action="petBusyAction"
+        :error="petError"
+        :chat-messages="petChatMessages"
+        @pat="handlePatPet"
+        @feed="handleFeedPet"
+        @chat="handleChatPet"
+        @reload="loadPetState"
+      />
     </div>
   </main>
 </template>
@@ -306,11 +393,11 @@ onBeforeUnmount(() => {
 
 .hero-stage {
   display: flex;
-  min-height: calc(100vh - 120px);
+  min-height: calc(62vh - 120px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 0 12px;
+  padding: 32px 0 26px;
   text-align: center;
   margin: 0;
 }
