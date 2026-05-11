@@ -6,7 +6,6 @@ import { fetchWeatherForecast } from '../api/weather'
 import AppNavbar from '../components/home/AppNavbar.vue'
 import HeroSection from '../components/home/HeroSection.vue'
 import SunsetCard from '../components/home/SunsetCard.vue'
-import { evaluateSkyOpticalState } from '../utils/sunsetScore'
 
 const DEFAULT_CITY = 'Xiamen'
 const DEFAULT_TARGET = 'today-sunset'
@@ -64,13 +63,7 @@ const opticalState = computed(() => {
     return null
   }
 
-  return evaluateSkyOpticalState({
-    cloudCoverLow: forecast.value.cloudCoverLow,
-    cloudCoverMid: forecast.value.cloudCoverMid,
-    cloudCoverHigh: forecast.value.cloudCoverHigh,
-    aerosolOpticalDepth: forecast.value.aerosolOpticalDepth,
-    boundaryDistanceKm: forecast.value.boundaryDistanceKm,
-  })
+  return forecast.value.opticalState ?? null
 })
 
 const heroStats = computed(() => [

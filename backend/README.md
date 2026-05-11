@@ -5,8 +5,9 @@ Spring Boot 版本的后端，默认提供：
 - `GET /api/health`
 - `GET /api/messages`
 - `POST /api/messages`
+- `GET /api/forecast`
 
-接口返回结构保持和之前一致，所以前端不需要改请求格式。
+留言接口返回结构保持和之前一致；晚霞预测现在也通过后端聚合 Open-Meteo 数据并返回评分结果。
 
 ## Local Development
 

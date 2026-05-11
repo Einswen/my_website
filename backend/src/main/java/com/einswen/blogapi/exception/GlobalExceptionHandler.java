@@ -20,6 +20,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleUnexpectedException(Exception exception) {
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(new ApiErrorResponse("留言服务暂时不可用。"));
+            .body(new ApiErrorResponse("服务暂时不可用。"));
     }
 }

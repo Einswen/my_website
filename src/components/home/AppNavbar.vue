@@ -77,6 +77,8 @@ function toggleEmail(email) {
 <style scoped>
 .navbar {
   position: relative;
+  z-index: 100;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -86,6 +88,7 @@ function toggleEmail(email) {
   border-radius: 22px;
   background: rgba(6, 11, 23, 0.55);
   backdrop-filter: blur(14px);
+  overflow: visible;
 }
 
 .nav-links {
@@ -133,6 +136,7 @@ function toggleEmail(email) {
 
 .email-popover {
   position: absolute;
+  z-index: 200;
   top: calc(100% + 10px);
   right: 18px;
   padding: 12px 15px;
@@ -193,7 +197,7 @@ function toggleEmail(email) {
     position: fixed;
     top: 78px;
     right: 12px;
-    z-index: 10;
+    z-index: 1200;
     max-width: calc(100vw - 48px);
     overflow-wrap: anywhere;
     white-space: normal;
