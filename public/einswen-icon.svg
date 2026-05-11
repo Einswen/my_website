@@ -1,0 +1,79 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="128" fill="url(#sky)" />
+  <circle cx="378" cy="120" r="92" fill="url(#upperGlow)" opacity="0.72" />
+  <circle cx="158" cy="374" r="126" fill="url(#lowerGlow)" opacity="0.74" />
+  <path
+    d="M88 324C128 285 177 268 235 275C288 281 317 309 371 304C395 302 418 294 442 280V392C442 410 428 424 410 424H102C84 424 70 410 70 392V346C76 340 82 333 88 324Z"
+    fill="url(#horizon)"
+  />
+  <path
+    d="M70 326C116 284 169 265 229 272C289 279 320 313 379 303C402 299 423 290 442 278"
+    stroke="url(#horizonLine)"
+    stroke-width="18"
+    stroke-linecap="round"
+  />
+  <path
+    d="M153 177H314"
+    stroke="url(#mark)"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <path
+    d="M153 254H276"
+    stroke="url(#mark)"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <path
+    d="M153 177V334"
+    stroke="url(#mark)"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <path
+    d="M153 334H322"
+    stroke="url(#mark)"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <circle cx="352" cy="176" r="9" fill="#FFE5A6" />
+  <circle cx="388" cy="224" r="5" fill="#8FB2FF" />
+  <circle cx="112" cy="238" r="5" fill="#FF9A76" />
+  <path
+    d="M342 177C365 181 384 196 394 217"
+    stroke="#8FB2FF"
+    stroke-width="5"
+    stroke-linecap="round"
+    opacity="0.7"
+  />
+  <defs>
+    <linearGradient id="sky" x1="122" y1="36" x2="414" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101A35" />
+      <stop offset="0.5" stop-color="#060B19" />
+      <stop offset="1" stop-color="#120D1F" />
+    </linearGradient>
+    <radialGradient id="upperGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(378 120) rotate(90) scale(92)">
+      <stop stop-color="#89A8FF" stop-opacity="0.62" />
+      <stop offset="1" stop-color="#89A8FF" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="lowerGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(158 374) rotate(90) scale(126)">
+      <stop stop-color="#FF8D67" stop-opacity="0.68" />
+      <stop offset="1" stop-color="#FF8D67" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="horizon" x1="81" y1="274" x2="334" y2="473" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB36E" stop-opacity="0.92" />
+      <stop offset="0.48" stop-color="#FF6F72" stop-opacity="0.42" />
+      <stop offset="1" stop-color="#4B64FF" stop-opacity="0.18" />
+    </linearGradient>
+    <linearGradient id="horizonLine" x1="82" y1="301" x2="443" y2="301" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE4A0" />
+      <stop offset="0.48" stop-color="#FF9070" />
+      <stop offset="1" stop-color="#91ACFF" />
+    </linearGradient>
+    <linearGradient id="mark" x1="130" y1="172" x2="330" y2="346" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5FAFF" />
+      <stop offset="0.55" stop-color="#D7E3FF" />
+      <stop offset="1" stop-color="#FFCB91" />
+    </linearGradient>
+  </defs>
+</svg>
